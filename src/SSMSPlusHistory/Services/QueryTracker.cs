@@ -68,7 +68,12 @@
                     return;
 
                 // Get Current Connection Information
-                UIConnectionInfo connInfo = ServiceCache.ScriptFactory.CurrentlyActiveWndConnectionInfo.UIConnectionInfo;
+                UIConnectionInfo connInfo = ServiceCache.ScriptFactory.CurrentlyActiveWndConnectionInfo?.UIConnectionInfo;
+                if (connInfo == null)
+                {
+                    _logger.LogWarning("Query execution without connection information, skipping history entry");
+                    return;
+                }
 
                 var queryItem = new QueryItem()
                 {
@@ -83,11 +88,11 @@
 
                 itemsQueue.Enqueue(queryItem);
 
-                Task.Delay(1000).ContinueWith((t) => this.SavePendingItems());
+                _ = SaveSoonAsync();
             }
             catch (Exception ex)
             {
-                _logger.LogError("Error on BeforeExecute tracking", ex);
+                _logger.LogError(ex, "Error on BeforeExecute tracking");
             }
         }
 
@@ -110,7 +115,24 @@
             return queryText;
         }
 
-        private async Task SavePendingItems()
+        private async Task SaveSoonAsync()
+        {
+            try
+            {
+                await Task.Delay(1000).ConfigureAwait(false);
+                await SavePendingItems(0).ConfigureAwait(false);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error while saving the execution history");
+            }
+        }
+
+        /// <summary>
+        /// A failed save (for example the history database locked by another SSMS instance)
+        /// is logged and retried a few times instead of losing the items.
+        /// </summary>
+        private async Task SavePendingItems(int attempt)
         {
             List<QueryItem> pendingItems = new List<QueryItem>();
             lock (itemsQueue)
@@ -122,7 +144,25 @@
                 }
             }
 
-            await _queryItemRepository.Insert(pendingItems);
+            if (pendingItems.Count == 0)
+                return;
+
+            try
+            {
+                await _queryItemRepository.Insert(pendingItems).ConfigureAwait(false);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Could not save {Count} history item(s) (attempt {Attempt})", pendingItems.Count, attempt + 1);
+                if (attempt >= 5)
+                    return;
+
+                foreach (var item in pendingItems)
+                    itemsQueue.Enqueue(item);
+
+                await Task.Delay(2000 * (attempt + 1)).ConfigureAwait(false);
+                await SavePendingItems(attempt + 1).ConfigureAwait(false);
+            }
         }
     }
 }

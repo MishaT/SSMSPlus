@@ -68,6 +68,10 @@
 
                 var sw = System.Diagnostics.Stopwatch.StartNew();
 
+                // The default end date follows the clock, so a window left open since yesterday still shows today's queries.
+                if (!_endDateChanged && _endDate != DateTime.Now.AddDays(1).Date)
+                    SetField(ref _endDate, DateTime.Now.AddDays(1).Date, nameof(EndDate));
+
                 var filterContext = new FilterContext(QueryFilter, ServerFilter, DbFilter, StartDate.ToUniversalTime(), EndDate.ToUniversalTime());
                 var result = await _itemsRepository.FindItems(filterContext);
                 QueryItemsVM = result.Select(q => new ScriptSearchTarget(q)).Select(p => new SearchFilterResultVM(p, filterContext)).ToList();
@@ -124,11 +128,14 @@
         }
 
         private DateTime _endDate;
+        private bool _endDateChanged;
         public DateTime EndDate
         {
             get => _endDate;
             set
             {
+                if (value != _endDate)
+                    _endDateChanged = true;
                 SetField(ref _endDate, value);
                 OnSearchChange();
             }
