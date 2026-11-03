@@ -63,8 +63,15 @@
             ("Multiple Active Result Sets", "MultipleActiveResultSets"),
             ("Multi Subnet Failover", "MultiSubnetFailover"),
             ("Transparent Network IP Resolution", "TransparentNetworkIPResolution"),
-            ("Trust Server Certificate", "TrustServerCertificate")
+            ("Trust Server Certificate", "TrustServerCertificate"),
+            // Microsoft.Data.SqlClient encrypt modes (SSMS 21+) are not understood by System.Data.SqlClient
+            (@"Encrypt\s*=\s*(Mandatory|Strict)", "Encrypt=True"),
+            (@"Encrypt\s*=\s*Optional", "Encrypt=False")
         };
+
+        // Microsoft.Data.SqlClient only keywords, rejected by System.Data.SqlClient
+        private static readonly string UnsupportedSqlProperties =
+            @"(?<=^|;)\s*(Host\s*Name\s*In\s*Certificate|Server\s*Certificate|Server\s*SPN|Failover\s*Partner\s*SPN|IP\s*Address\s*Preference)\s*=[^;]*;?";
 
         public static string NormalizeToLegacyConnectionString(string connectionString)
         {
@@ -74,6 +81,8 @@
                 {
                     connectionString = Regex.Replace(connectionString, replacement.@new, replacement.old, RegexOptions.IgnoreCase);
                 }
+
+                connectionString = Regex.Replace(connectionString, UnsupportedSqlProperties, string.Empty, RegexOptions.IgnoreCase);
             }
 
             return connectionString;

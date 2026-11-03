@@ -6,9 +6,16 @@
              xmlns:local="clr-namespace:SSMSPlusPreferences.UI"
                      xmlns:conv="clr-namespace:SSMSPlusCore.Ui.Converters;assembly=SSMSPlusCore"
              xmlns:ext="clr-namespace:SSMSPlusCore.Ui.Extensions;assembly=SSMSPlusCore"
-             Background="{DynamicResource {x:Static SystemColors.MenuBarBrushKey}}"
-             mc:Ignorable="d" 
+             xmlns:vs="clr-namespace:Microsoft.VisualStudio.PlatformUI;assembly=Microsoft.VisualStudio.Shell.15.0"
+             Background="{DynamicResource {x:Static vs:EnvironmentColors.ToolWindowBackgroundBrushKey}}"
+             Foreground="{DynamicResource {x:Static vs:EnvironmentColors.ToolWindowTextBrushKey}}"
+             ext:VsTheme.UseVsTheme="True"
+             mc:Ignorable="d"
              d:DesignHeight="450" d:DesignWidth="800">
+
+    <Window.Resources>
+        <ResourceDictionary Source="pack://application:,,,/SSMSPlusCore;component/Ui/Design/Theme.xaml"/>
+    </Window.Resources>
     <Grid Margin="12" ext:GridExtensions.Structure="*,*|*">
         <Grid  ext:GridExtensions.Structure="auto,auto,auto|*">
             <Grid Grid.Row="0" Background="Transparent" Margin="0,0,0,12" ext:GridExtensions.Structure="auto,auto|auto,auto,*">

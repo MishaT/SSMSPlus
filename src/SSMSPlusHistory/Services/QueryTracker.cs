@@ -49,7 +49,11 @@
             var command = dte2.Commands.Item("Query.Execute");
 
             QueryExecuteEvent = dte2.Events.get_CommandEvents(command.Guid, command.ID);
-            QueryExecuteEvent.BeforeExecute += this.CommandEvents_BeforeExecute;
+
+            // SSMS 22 redirects EnvDTE 8.0 to Microsoft.VisualStudio.Interop 18.0, whose event delegates have a different constructor
+            // signature than the EnvDTE 8.0 assembly we compile against: create the delegate from the runtime type instead of "+=".
+            var beforeExecute = typeof(_dispCommandEvents_Event).GetEvent(nameof(_dispCommandEvents_Event.BeforeExecute));
+            beforeExecute.AddEventHandler(QueryExecuteEvent, Delegate.CreateDelegate(beforeExecute.EventHandlerType, this, nameof(CommandEvents_BeforeExecute)));
         }
 
         private void CommandEvents_BeforeExecute(string Guid, int ID, object CustomIn, object CustomOut, ref bool CancelDefault)

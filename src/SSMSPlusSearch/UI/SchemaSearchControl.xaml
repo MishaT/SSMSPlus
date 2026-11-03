@@ -8,7 +8,10 @@
              xmlns:combo="clr-namespace:SSMSPlusCore.Ui.Controls.ComboCheckBox;assembly=SSMSPlusCore"
              xmlns:drop="clr-namespace:SSMSPlusCore.Ui.Controls.DropMenu;assembly=SSMSPlusCore"
              xmlns:loading="clr-namespace:SSMSPlusCore.Ui.Controls.LoadingIndicator;assembly=SSMSPlusCore"
-             Background="{DynamicResource {x:Static SystemColors.MenuBarBrushKey}}"
+             xmlns:vs="clr-namespace:Microsoft.VisualStudio.PlatformUI;assembly=Microsoft.VisualStudio.Shell.15.0"
+             Background="{DynamicResource {x:Static vs:EnvironmentColors.ToolWindowBackgroundBrushKey}}"
+             Foreground="{DynamicResource {x:Static vs:EnvironmentColors.ToolWindowTextBrushKey}}"
+             ext:VsTheme.UseVsTheme="True"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="1000">
     <UserControl.Resources>
@@ -16,7 +19,7 @@
             <CollectionViewSource  x:Key="SearchResultsVM_VS" Source="{Binding SearchResultsVM}" IsLiveSortingRequested="True" />
             <BooleanToVisibilityConverter x:Key="VisibleIfTrueConverter" />
             <conv:HighlightToTextBlockConverter x:Key="HighlightToTextBlock" />
-            <ContextMenu  x:Key="RowMenu" DataContext="{Binding PlacementTarget.DataContext, RelativeSource={RelativeSource Self}}">
+            <ContextMenu  x:Key="RowMenu" Style="{StaticResource ThemedContextMenu}" DataContext="{Binding PlacementTarget.DataContext, RelativeSource={RelativeSource Self}}">
                 <MenuItem Header="Locate in Object Explorer" CommandParameter="{Binding}" 
                   Command="{Binding DataContext.LocateItemCmd, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=DataGrid}}" />
                 <MenuItem Header="Copy Name" CommandParameter="{Binding}" 
@@ -39,14 +42,14 @@
             <TextBlock  Grid.Column="1" FontSize="12" VerticalAlignment="Center">Schema <LineBreak/> Search</TextBlock>
             <Separator Grid.Row="1" Grid.ColumnSpan="10"></Separator>
             <StackPanel Grid.Column="2" HorizontalAlignment="Right" VerticalAlignment="Center">
-                <Menu>
-                    <MenuItem Padding="4" >
-                        <MenuItem.Header>
-                            <drop:DropMenuHeader ItemName="{Binding DbDisplayName}"/>
-                        </MenuItem.Header>
-                        <MenuItem Header="Reindex" Command="{Binding ReIndexDbCmd}"/>
-                    </MenuItem>
-                </Menu>
+                <Button Padding="4" ext:ContextMenuExtensions.OpenOnClick="True">
+                    <drop:DropMenuHeader ItemName="{Binding DbDisplayName}"/>
+                    <Button.ContextMenu>
+                        <ContextMenu Style="{StaticResource ThemedContextMenu}">
+                            <MenuItem Header="Reindex" Command="{Binding ReIndexDbCmd}"/>
+                        </ContextMenu>
+                    </Button.ContextMenu>
+                </Button>
             </StackPanel>
         </Grid>
 
@@ -54,7 +57,7 @@
 
             <StackPanel Grid.Column="0" Margin="0,0,5,0">
                 <Label  Style="{StaticResource form_v_Label}">Filter:</Label>
-                <TextBox Name="Filter" Style="{StaticResource form_v_TextBox}" Text="{Binding Path=Filter, UpdateSourceTrigger=PropertyChanged, Delay=0}" IsEnabled="{Binding ControlsEnabled}"/>
+                <TextBox Name="Filter" Height="26" Padding="4" Text="{Binding Path=Filter, UpdateSourceTrigger=PropertyChanged, Delay=0}" IsEnabled="{Binding ControlsEnabled}"/>
             </StackPanel>
 
             <StackPanel Grid.Column="1" Margin="0,0,5,0">
@@ -83,7 +86,7 @@
                                        HorizontalAlignment="Left" Margin="0,10,0,10" Visibility="{Binding Path=IsIndexing, Converter={StaticResource VisibleIfTrueConverter}}"/>
 
         <Grid Name="objectsGrid" Grid.Row="3" ext:GridExtensions.Structure="1*,1*|*">
-            <ext:EnhancedDataGrid  Grid.Row="0" MinHeight="100" Style="{StaticResource FastReadOnly}" BorderBrush="Black" 
+            <ext:EnhancedDataGrid  Grid.Row="0" MinHeight="100" Style="{StaticResource FastReadOnly}"
                        ItemsSource="{Binding Source={StaticResource SearchResultsVM_VS}}"
                        SelectedIndex="0"
                        SelectedValue="{Binding SelectedItem}"
@@ -128,7 +131,7 @@
                 </GridSplitter.Resources>
             </GridSplitter>
 
-            <FlowDocumentScrollViewer Name="fdsvDefination"  Grid.Row="1" Margin="0,10,0,0" BorderBrush="Black" BorderThickness="1" 
+            <FlowDocumentScrollViewer Name="fdsvDefination"  Grid.Row="1" Margin="0,10,0,0" BorderBrush="{DynamicResource {x:Static vs:EnvironmentColors.ToolWindowBorderBrushKey}}" BorderThickness="1"
                                         ext:FlowDocumentScrollViewerDocumentHighlightBehavior.HighlightContext="{Binding SelectedItem.FullPreviewHighlight}">
 
                 <FlowDocumentScrollViewer.Resources>

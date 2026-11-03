@@ -20,7 +20,8 @@ namespace SSMSPlusCore.Ui.Text
 
         public void SendStandard(string text, bool newLine = true)
         {
-            SendColored(text, Brushes.Black, newLine);
+            // no color: inherits the themed foreground of the output control
+            SendColored(text, null, newLine);
         }
 
         public void SendError(string text, bool newLine = true)

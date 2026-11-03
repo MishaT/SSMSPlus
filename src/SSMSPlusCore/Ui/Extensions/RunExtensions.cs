@@ -13,7 +13,11 @@ namespace SSMSPlusCore.Ui.Extensions
         public static Run CreateColored(string text, Brush foreground)
         {
             var run = new Run(text);
-            run.Foreground = foreground;
+            if (foreground != null)
+            {
+                run.Foreground = foreground;
+            }
+
             return run;
         }
 

@@ -1,8 +1,10 @@
-As for 06/06/2020
+As for 03/11/2026 (SSMS 22)
 
-Vsix install does not work, see
+SSMS 22 is based on the Visual Studio 18 (2026) shell (64-bit) and supports VSIX install through its own installer:
 
-https://docs.microsoft.com/en-us/sql/ssms/install-extensions-in-sql-server-management-studio-ssms?view=sql-server-ver15
+`C:\Program Files\Microsoft SQL Server Management Studio 22\Release\Common7\IDE\VSIXInstaller.exe`
 
-# Publish workaround
-Zip the extension folder in `C:\Program Files (x86)\Microsoft SQL Server Management Studio 20\Common7\IDE\Extensions\SSMSPlus` as SFX package
+# Publish
+Build the `SSMSPlus` project in Release with Visual Studio 2022, then publish `src\SSMSPlus\bin\Release\SSMSPlus.vsix` as the release asset.
+
+Bump the version in both `src\SSMSPlus\Properties\AssemblyInfo.cs` (`AssemblyVersion` build number drives the db upgrade scripts) and `src\SSMSPlus\source.extension.vsixmanifest`.
