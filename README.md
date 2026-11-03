@@ -38,7 +38,7 @@ SQL Server Management Studio 18 / 19 / 20 / 22
 ## Download
 ### For SSMS 22
 
-Get the latest build (`SSMSPlus.vsix`) from the [Releases](https://github.com/akarzazi/SSMSPlus/releases) page.
+Get the latest build (`SSMSPlus.vsix`) from the [Releases](https://github.com/MishaT/SSMSPlus/releases) page.
 
 ### For SSMS 20
 
