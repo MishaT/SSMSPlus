@@ -335,6 +335,14 @@
       <Name>SSMSPlusHistory</Name>
       <IncludeOutputGroupsInVSIX>SatelliteDllsProjectOutputGroup</IncludeOutputGroupsInVSIX>
     </ProjectReference>
+    <ProjectReference Include="..\SSMSPlusMacros\SSMSPlusMacros.csproj">
+      <Project>{0cfcf960-fc11-49f8-8cfc-403c7de0baef}</Project>
+      <Name>SSMSPlusMacros</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SSMSPlusWarnings\SSMSPlusWarnings.csproj">
+      <Project>{b6b2bd05-44a2-4726-b9f6-c648b9651020}</Project>
+      <Name>SSMSPlusWarnings</Name>
+    </ProjectReference>
     <ProjectReference Include="..\SSMSPlusPreferences\SSMSPlusPreferences.csproj">
       <Project>{EB38BBD1-F621-4AE1-9B82-15D52DACF042}</Project>
       <Name>SSMSPlusPreferences</Name>

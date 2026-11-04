@@ -1,0 +1,15 @@
+﻿<platformUI:DialogWindow x:Class="SSMSPlusWarnings.UI.ActionGuardWindow"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:SSMSPlusWarnings.UI"
+             xmlns:vs="clr-namespace:Microsoft.VisualStudio.PlatformUI;assembly=Microsoft.VisualStudio.Shell.15.0"
+             xmlns:platformUI="clr-namespace:Microsoft.VisualStudio.PlatformUI;assembly=Microsoft.VisualStudio.Shell.15.0"
+             Title="SSMS Plus - Action Guard"
+             Width="580" Height="340" MinWidth="480" MinHeight="300"
+             WindowStartupLocation="CenterOwner"
+             ShowInTaskbar="False"
+             HasMinimizeButton="False"
+             HasMaximizeButton="False"
+             Background="{DynamicResource {x:Static vs:EnvironmentColors.ToolWindowBackgroundBrushKey}}">
+    <local:ActionGuardControl />
+</platformUI:DialogWindow>

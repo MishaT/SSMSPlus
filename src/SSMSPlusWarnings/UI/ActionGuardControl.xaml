@@ -1,0 +1,47 @@
+﻿<UserControl x:Class="SSMSPlusWarnings.UI.ActionGuardControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:ext="clr-namespace:SSMSPlusCore.Ui.Extensions;assembly=SSMSPlusCore"
+             xmlns:vs="clr-namespace:Microsoft.VisualStudio.PlatformUI;assembly=Microsoft.VisualStudio.Shell.15.0"
+             Background="{DynamicResource {x:Static vs:EnvironmentColors.ToolWindowBackgroundBrushKey}}"
+             Foreground="{DynamicResource {x:Static vs:EnvironmentColors.ToolWindowTextBrushKey}}"
+             ext:VsTheme.UseVsTheme="True">
+    <UserControl.Resources>
+        <ResourceDictionary Source="pack://application:,,,/SSMSPlusCore;component/Ui/Design/Theme.xaml"/>
+    </UserControl.Resources>
+
+    <Grid Margin="16">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <CheckBox IsChecked="{Binding ConfirmUnsafeStatements}" FontWeight="SemiBold"
+                  Content="Ask before executing UPDATE / DELETE without WHERE or JOIN condition" />
+
+        <StackPanel Grid.Row="1" Margin="22,10,0,0">
+            <StackPanel.Resources>
+                <Style TargetType="TextBlock">
+                    <Setter Property="TextWrapping" Value="Wrap" />
+                    <Setter Property="Margin" Value="0,0,0,6" />
+                    <Setter Property="Foreground" Value="{DynamicResource {x:Static vs:EnvironmentColors.ToolWindowTextBrushKey}}" />
+                </Style>
+            </StackPanel.Resources>
+            <TextBlock Text="Before a query is executed, SSMS Plus looks for the statements changing all the rows of a table and asks for a confirmation, with their line numbers." />
+            <TextBlock Text="Not checked:" Margin="0,4,0,2" />
+            <TextBlock Opacity="0.8" Margin="12,0,0,0">
+                • temp tables (#t, ##t) and table variables (@t)<LineBreak />
+                • INNER / RIGHT JOIN and CROSS APPLY, which restrict the rows<LineBreak />
+                • DELETE TOP (n) and WHERE CURRENT OF<LineBreak />
+                • statements inside CREATE / ALTER PROCEDURE, FUNCTION and TRIGGER
+            </TextBlock>
+            <TextBlock Text="{Binding Error}" Foreground="#E81123" Margin="0,8,0,0" />
+        </StackPanel>
+
+        <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right">
+            <Button Content="OK" MinWidth="80" Padding="8,3" IsDefault="True" Click="Ok_Click" />
+            <Button Content="Cancel" MinWidth="80" Padding="8,3" Margin="8,0,0,0" IsCancel="True" Click="Cancel_Click" />
+        </StackPanel>
+    </Grid>
+</UserControl>

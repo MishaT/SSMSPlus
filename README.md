@@ -6,6 +6,10 @@ It extends SSMS with a handful set of features:
     Query Execution History
     Schema Object Search
     Document Export for binary columns
+    Macros: several SSMS commands on one shortcut
+    Open transaction warning
+    Action Guard: confirmation before UPDATE / DELETE without WHERE
+    Long execution messages
 
 
 ### Table Of Contents
@@ -20,6 +24,10 @@ It extends SSMS with a handful set of features:
   * [Query History](#query-history)
   * [Schema Object Search](#schema-object-search)
   * [Documents Export](#documents-export)
+  * [Macros](#macros)
+  * [Open Transaction Warning](#open-transaction-warning)
+  * [Action Guard](#action-guard)
+  * [Long Execution Messages](#long-execution-messages)
 - [Contributing](#contributing)
   * [How can I contribute ?](#how-can-i-contribute--)
   * [Project Goals](#project-goals)
@@ -121,6 +129,44 @@ This tool is handy when you want to preview or export files from the database.
 The query is expecting two columns corresponding respectively to file name and file content.
 
 ![SSMS Plus Documents Export](docs/illustrations/document-export-screen.png?raw=true "Documents Export")
+
+## Macros
+
+Run several SSMS commands with one click or shortcut, for example `F5` = `Query.ResultsToGrid` + `Query.Execute` and `F6` = `Query.ResultsToText` + `Query.Execute`.
+
+Open **SSMS Plus > Settings > Macros...**, add a macro, press its shortcut, pick the commands (the search lists the SSMS command names) and save. A shortcut can work in the query windows only or everywhere.
+
+- When an SSMS command already uses the shortcut, the macro takes it, and gives it back when the macro is removed or gets another shortcut.
+- The macros (up to 10) are also listed in the SSMS Plus menu, and in **Tools > Options > Keyboard** as `SSMSPlus.Macro1`...`SSMSPlus.Macro10`.
+- They are saved in `%LOCALAPPDATA%\SSMS Plus\macros.json`.
+
+## Open Transaction Warning
+
+When an execution leaves a transaction open in a query window (`@@TRANCOUNT > 0`), a warning shows at the top right corner of SSMS with the tab name and the time of the execution.
+
+It disappears once the transaction is committed or rolled back (at the next execution of the tab), when the tab is disconnected or closed. Click the warning to go to the tab.
+
+## Action Guard
+
+Before a query is executed, SSMS Plus looks for the `UPDATE` and `DELETE` statements changing all the rows of a table (no `WHERE`, no join condition) and asks for a confirmation, with their line numbers.
+
+Not checked: temp tables (`#t`, `##t`), table variables (`@t`), `INNER` / `RIGHT JOIN` and `CROSS APPLY`, `DELETE TOP (n)`, `WHERE CURRENT OF`, and the statements inside `CREATE` / `ALTER PROCEDURE`, `FUNCTION` and `TRIGGER`.
+
+On by default, see **SSMS Plus > Settings > Action Guard...**
+
+## Long Execution Messages
+
+When an execution takes longer than a threshold (60 seconds by default), a message shows at the top right corner of SSMS:
+
+```
+Document: SQLQuery13.sql
+Execution result: Success
+Connection: Dev.RMN_Back_Test (WinAuth)
+Started: 01:23:21 Ended: 01:25:22
+Duration: 00:02:00
+```
+
+Each execution gets its own message, they stack below each other. In **SSMS Plus > Settings > Long Executions...**: on / off, the threshold, the time after which the message is hidden (30 seconds), and the execution length after which the message stays until closed (10 minutes).
 
 # Contributing
 

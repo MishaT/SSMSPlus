@@ -218,6 +218,8 @@
     <Compile Include="ServiceCollectionExtension.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Settings\DistributionSettings.cs" />
+    <Compile Include="Settings\UserPreferences.cs" />
+    <Compile Include="Settings\UserPreferencesStore.cs" />
     <Compile Include="SqlServer\DbHelper.cs" />
     <Compile Include="Ui\Commands\AsyncCommand.cs" />
     <Compile Include="Ui\Commands\Command.cs" />

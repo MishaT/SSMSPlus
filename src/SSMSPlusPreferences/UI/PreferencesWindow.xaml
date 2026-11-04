@@ -1,52 +1,102 @@
 ﻿<Window x:Class="SSMSPlusPreferences.UI.PreferencesWindow"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:SSMSPlusPreferences.UI"
-                     xmlns:conv="clr-namespace:SSMSPlusCore.Ui.Converters;assembly=SSMSPlusCore"
              xmlns:ext="clr-namespace:SSMSPlusCore.Ui.Extensions;assembly=SSMSPlusCore"
              xmlns:vs="clr-namespace:Microsoft.VisualStudio.PlatformUI;assembly=Microsoft.VisualStudio.Shell.15.0"
+             Title="About SSMS Plus"
+             Width="720" Height="560" MinWidth="560" MinHeight="420"
+             WindowStartupLocation="CenterScreen"
              Background="{DynamicResource {x:Static vs:EnvironmentColors.ToolWindowBackgroundBrushKey}}"
              Foreground="{DynamicResource {x:Static vs:EnvironmentColors.ToolWindowTextBrushKey}}"
              ext:VsTheme.UseVsTheme="True"
-             mc:Ignorable="d"
-             d:DesignHeight="450" d:DesignWidth="800">
+             mc:Ignorable="d">
 
     <Window.Resources>
         <ResourceDictionary Source="pack://application:,,,/SSMSPlusCore;component/Ui/Design/Theme.xaml"/>
     </Window.Resources>
-    <Grid Margin="12" ext:GridExtensions.Structure="*,*|*">
-        <Grid  ext:GridExtensions.Structure="auto,auto,auto|*">
+    <ScrollViewer VerticalScrollBarVisibility="Auto">
+        <Grid Margin="12" Grid.IsSharedSizeScope="True" ext:GridExtensions.Structure="auto,auto,auto|*">
             <Grid Grid.Row="0" Background="Transparent" Margin="0,0,0,12" ext:GridExtensions.Structure="auto,auto|auto,auto,*">
-                <Label FontSize="22" Padding="0" Margin="0,0,5,0" VerticalAlignment="Center">SSMS Plus</Label>
-                <TextBlock  Grid.Column="1" FontSize="12" VerticalAlignment="Center">About <LineBreak/> Preferences</TextBlock>
+                <Label FontSize="22" Padding="0" Margin="0,0,8,0" VerticalAlignment="Center">SSMS Plus</Label>
+                <TextBlock Grid.Column="1" FontSize="12" VerticalAlignment="Center">About</TextBlock>
                 <Separator Grid.Row="1" Grid.ColumnSpan="10"></Separator>
             </Grid>
 
-            <GroupBox Grid.Row="2">
+            <GroupBox Grid.Row="1" Margin="0,0,0,12">
                 <GroupBox.Header>
                     <Label>About</Label>
                 </GroupBox.Header>
-                <Grid ext:GridExtensions.Structure="auto,auto,auto|auto,auto" Margin="8">
-                    <TextBlock  Text="Version:"  />
-                    <TextBlock  Grid.Column="1" Margin="40,0,0,10" Text="{Binding Version}"  />
+                <Grid Margin="8">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" SharedSizeGroup="Label" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <TextBlock Text="Version:" />
+                    <TextBlock Grid.Column="1" Margin="40,0,0,10" Text="{Binding Version}" />
 
-                    <TextBlock Grid.Row="1" Text="Working Directory:"  />
-                    <TextBlock Grid.Row="1" Grid.Column="1" Margin="40,0,0,10">
-                        <Hyperlink Command="{Binding OpenWorkingDirCmd}"  >
+                    <TextBlock Grid.Row="1" Text="Working Directory:" />
+                    <TextBlock Grid.Row="1" Grid.Column="1" Margin="40,0,0,10" TextWrapping="Wrap">
+                        <Hyperlink Command="{Binding OpenWorkingDirCmd}">
                            <Run Text="{Binding WorkingDirPath, Mode=OneWay}" />
                         </Hyperlink>
                     </TextBlock>
 
-                    <TextBlock Grid.Row="2" Text="{Binding DistributionSettings.ContributeText}"  />
+                    <TextBlock Grid.Row="2" Text="{Binding DistributionSettings.ContributeText}" />
                     <TextBlock Grid.Row="2" Grid.Column="1" Margin="40,0,0,10">
-                        <Hyperlink Command="{Binding OpenContributeCmd}"  >
+                        <Hyperlink Command="{Binding OpenContributeCmd}">
                            <Run Text="{Binding DistributionSettings.ContributeUrl, Mode=OneWay}" />
                         </Hyperlink>
                     </TextBlock>
                 </Grid>
             </GroupBox>
+
+            <GroupBox Grid.Row="2">
+                <GroupBox.Header>
+                    <Label>This fork</Label>
+                </GroupBox.Header>
+                <Grid Margin="8">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" SharedSizeGroup="Label" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <TextBlock Text="Repository:" />
+                    <TextBlock Grid.Column="1" Margin="40,0,0,10">
+                        <Hyperlink Command="{Binding OpenForkCmd}">
+                           <Run Text="{x:Static local:PreferencesWindowVM.ForkUrl}" />
+                        </Hyperlink>
+                    </TextBlock>
+
+                    <TextBlock Grid.Row="1" Text="Adds:" />
+                    <TextBlock Grid.Row="1" Grid.Column="1" Margin="40,0,0,10" TextWrapping="Wrap">
+                        • SQL Server Management Studio 22 support, windows following the SSMS theme (light / dark)<LineBreak />
+                        • Macros: several SSMS commands on one shortcut (Settings > Macros...)<LineBreak />
+                        • Warning while a query window has an open transaction<LineBreak />
+                        • Action Guard: confirmation before UPDATE / DELETE without WHERE (Settings > Action Guard...)<LineBreak />
+                        • Bug fixes, including some from alint997/SSMSPlus
+                    </TextBlock>
+
+                    <TextBlock Grid.Row="2" Text="Original project:" />
+                    <TextBlock Grid.Row="2" Grid.Column="1" Margin="40,0,0,10" TextWrapping="Wrap">
+                        <Hyperlink Command="{Binding OpenOriginalCmd}">
+                           <Run Text="{x:Static local:PreferencesWindowVM.OriginalUrl}" />
+                        </Hyperlink>
+                        <Run Text=" by akarzazi" />
+                    </TextBlock>
+                </Grid>
+            </GroupBox>
         </Grid>
-    </Grid>
+    </ScrollViewer>
 </Window>

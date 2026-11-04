@@ -40,6 +40,19 @@
         <Parent guid="guidCommand1PackageCmdSet" id="MyTopMenu"/>
         <!--<Parent guid="guidSHLMainMenu" id="IDM_VS_MENU_TOOLS" />-->
       </Group>
+      <Group guid="guidCommand1PackageCmdSet" id="MyMacroGroup" priority="0x0700">
+        <Parent guid="guidCommand1PackageCmdSet" id="MyTopMenu"/>
+      </Group>
+      <Group guid="guidCommand1PackageCmdSet" id="MySettingsGroup" priority="0x0800">
+        <Parent guid="guidCommand1PackageCmdSet" id="MyTopMenu"/>
+      </Group>
+      <Group guid="guidCommand1PackageCmdSet" id="SettingsMenuGroup" priority="0x0100">
+        <Parent guid="guidCommand1PackageCmdSet" id="SettingsMenu"/>
+      </Group>
+      <!-- always the last one -->
+      <Group guid="guidCommand1PackageCmdSet" id="MyAboutGroup" priority="0xFF00">
+        <Parent guid="guidCommand1PackageCmdSet" id="MyTopMenu"/>
+      </Group>
     </Groups>
 
     <Menus>
@@ -47,6 +60,12 @@
         <Parent guid="guidSHLMainMenu" id="IDG_VS_MM_TOOLSADDINS"/>
         <Strings>
           <ButtonText>SSMS Plus</ButtonText>
+        </Strings>
+      </Menu>
+      <Menu guid="guidCommand1PackageCmdSet" id="SettingsMenu" priority="0x0100" type="Menu">
+        <Parent guid="guidCommand1PackageCmdSet" id="MySettingsGroup"/>
+        <Strings>
+          <ButtonText>Settings</ButtonText>
         </Strings>
       </Menu>
     </Menus>
@@ -83,9 +102,138 @@
         </Strings>
       </Button>
       <Button guid="guidCommand1PackageCmdSet" id="PreferencesCmd" priority="0x0100" type="Button">
-        <Parent guid="guidCommand1PackageCmdSet" id="MyMenuGroup" />
+        <Parent guid="guidCommand1PackageCmdSet" id="MyAboutGroup" />
         <Strings>
-          <ButtonText>About SSMSPlus</ButtonText>
+          <ButtonText>About SSMS Plus</ButtonText>
+        </Strings>
+      </Button>
+      <Button guid="guidCommand1PackageCmdSet" id="MacrosCmd" priority="0x0100" type="Button">
+        <Parent guid="guidCommand1PackageCmdSet" id="SettingsMenuGroup" />
+        <Strings>
+          <ButtonText>Macros...</ButtonText>
+        </Strings>
+      </Button>
+      <Button guid="guidCommand1PackageCmdSet" id="ActionGuardCmd" priority="0x0200" type="Button">
+        <Parent guid="guidCommand1PackageCmdSet" id="SettingsMenuGroup" />
+        <Strings>
+          <ButtonText>Action Guard...</ButtonText>
+        </Strings>
+      </Button>
+      <Button guid="guidCommand1PackageCmdSet" id="LongExecutionsCmd" priority="0x0300" type="Button">
+        <Parent guid="guidCommand1PackageCmdSet" id="SettingsMenuGroup" />
+        <Strings>
+          <ButtonText>Long Executions...</ButtonText>
+        </Strings>
+      </Button>
+      <!-- Macro slots: text, visibility and shortcut are set at runtime from the macros settings -->
+      <Button guid="guidCommand1PackageCmdSet" id="MacroSlot1" priority="0x0101" type="Button">
+        <Parent guid="guidCommand1PackageCmdSet" id="MyMacroGroup" />
+        <CommandFlag>DefaultInvisible</CommandFlag>
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>TextChanges</CommandFlag>
+        <Strings>
+          <ButtonText>Macro 1</ButtonText>
+          <CanonicalName>.SSMSPlus.Macro1</CanonicalName>
+          <LocCanonicalName>.SSMSPlus.Macro1</LocCanonicalName>
+        </Strings>
+      </Button>
+      <Button guid="guidCommand1PackageCmdSet" id="MacroSlot2" priority="0x0102" type="Button">
+        <Parent guid="guidCommand1PackageCmdSet" id="MyMacroGroup" />
+        <CommandFlag>DefaultInvisible</CommandFlag>
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>TextChanges</CommandFlag>
+        <Strings>
+          <ButtonText>Macro 2</ButtonText>
+          <CanonicalName>.SSMSPlus.Macro2</CanonicalName>
+          <LocCanonicalName>.SSMSPlus.Macro2</LocCanonicalName>
+        </Strings>
+      </Button>
+      <Button guid="guidCommand1PackageCmdSet" id="MacroSlot3" priority="0x0103" type="Button">
+        <Parent guid="guidCommand1PackageCmdSet" id="MyMacroGroup" />
+        <CommandFlag>DefaultInvisible</CommandFlag>
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>TextChanges</CommandFlag>
+        <Strings>
+          <ButtonText>Macro 3</ButtonText>
+          <CanonicalName>.SSMSPlus.Macro3</CanonicalName>
+          <LocCanonicalName>.SSMSPlus.Macro3</LocCanonicalName>
+        </Strings>
+      </Button>
+      <Button guid="guidCommand1PackageCmdSet" id="MacroSlot4" priority="0x0104" type="Button">
+        <Parent guid="guidCommand1PackageCmdSet" id="MyMacroGroup" />
+        <CommandFlag>DefaultInvisible</CommandFlag>
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>TextChanges</CommandFlag>
+        <Strings>
+          <ButtonText>Macro 4</ButtonText>
+          <CanonicalName>.SSMSPlus.Macro4</CanonicalName>
+          <LocCanonicalName>.SSMSPlus.Macro4</LocCanonicalName>
+        </Strings>
+      </Button>
+      <Button guid="guidCommand1PackageCmdSet" id="MacroSlot5" priority="0x0105" type="Button">
+        <Parent guid="guidCommand1PackageCmdSet" id="MyMacroGroup" />
+        <CommandFlag>DefaultInvisible</CommandFlag>
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>TextChanges</CommandFlag>
+        <Strings>
+          <ButtonText>Macro 5</ButtonText>
+          <CanonicalName>.SSMSPlus.Macro5</CanonicalName>
+          <LocCanonicalName>.SSMSPlus.Macro5</LocCanonicalName>
+        </Strings>
+      </Button>
+      <Button guid="guidCommand1PackageCmdSet" id="MacroSlot6" priority="0x0106" type="Button">
+        <Parent guid="guidCommand1PackageCmdSet" id="MyMacroGroup" />
+        <CommandFlag>DefaultInvisible</CommandFlag>
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>TextChanges</CommandFlag>
+        <Strings>
+          <ButtonText>Macro 6</ButtonText>
+          <CanonicalName>.SSMSPlus.Macro6</CanonicalName>
+          <LocCanonicalName>.SSMSPlus.Macro6</LocCanonicalName>
+        </Strings>
+      </Button>
+      <Button guid="guidCommand1PackageCmdSet" id="MacroSlot7" priority="0x0107" type="Button">
+        <Parent guid="guidCommand1PackageCmdSet" id="MyMacroGroup" />
+        <CommandFlag>DefaultInvisible</CommandFlag>
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>TextChanges</CommandFlag>
+        <Strings>
+          <ButtonText>Macro 7</ButtonText>
+          <CanonicalName>.SSMSPlus.Macro7</CanonicalName>
+          <LocCanonicalName>.SSMSPlus.Macro7</LocCanonicalName>
+        </Strings>
+      </Button>
+      <Button guid="guidCommand1PackageCmdSet" id="MacroSlot8" priority="0x0108" type="Button">
+        <Parent guid="guidCommand1PackageCmdSet" id="MyMacroGroup" />
+        <CommandFlag>DefaultInvisible</CommandFlag>
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>TextChanges</CommandFlag>
+        <Strings>
+          <ButtonText>Macro 8</ButtonText>
+          <CanonicalName>.SSMSPlus.Macro8</CanonicalName>
+          <LocCanonicalName>.SSMSPlus.Macro8</LocCanonicalName>
+        </Strings>
+      </Button>
+      <Button guid="guidCommand1PackageCmdSet" id="MacroSlot9" priority="0x0109" type="Button">
+        <Parent guid="guidCommand1PackageCmdSet" id="MyMacroGroup" />
+        <CommandFlag>DefaultInvisible</CommandFlag>
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>TextChanges</CommandFlag>
+        <Strings>
+          <ButtonText>Macro 9</ButtonText>
+          <CanonicalName>.SSMSPlus.Macro9</CanonicalName>
+          <LocCanonicalName>.SSMSPlus.Macro9</LocCanonicalName>
+        </Strings>
+      </Button>
+      <Button guid="guidCommand1PackageCmdSet" id="MacroSlot10" priority="0x010A" type="Button">
+        <Parent guid="guidCommand1PackageCmdSet" id="MyMacroGroup" />
+        <CommandFlag>DefaultInvisible</CommandFlag>
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>TextChanges</CommandFlag>
+        <Strings>
+          <ButtonText>Macro 10</ButtonText>
+          <CanonicalName>.SSMSPlus.Macro10</CanonicalName>
+          <LocCanonicalName>.SSMSPlus.Macro10</LocCanonicalName>
         </Strings>
       </Button>
     </Buttons>
@@ -123,6 +271,24 @@
       <IDSymbol name="SchemaSearchCmd" value="1101"  />
       <IDSymbol name="DocumentViewerCmd" value="1201"  />
       <IDSymbol name="PreferencesCmd" value="2001"  />
+      <IDSymbol name="MyMacroGroup" value="0x1021" />
+      <IDSymbol name="MacrosCmd" value="3001" />
+      <IDSymbol name="MacroSlot1" value="3011" />
+      <IDSymbol name="MacroSlot2" value="3012" />
+      <IDSymbol name="MacroSlot3" value="3013" />
+      <IDSymbol name="MacroSlot4" value="3014" />
+      <IDSymbol name="MacroSlot5" value="3015" />
+      <IDSymbol name="MacroSlot6" value="3016" />
+      <IDSymbol name="MacroSlot7" value="3017" />
+      <IDSymbol name="MacroSlot8" value="3018" />
+      <IDSymbol name="MacroSlot9" value="3019" />
+      <IDSymbol name="MacroSlot10" value="3020" />
+      <IDSymbol name="SettingsMenu" value="0x1002" />
+      <IDSymbol name="MySettingsGroup" value="0x1022" />
+      <IDSymbol name="SettingsMenuGroup" value="0x1023" />
+      <IDSymbol name="MyAboutGroup" value="0x1024" />
+      <IDSymbol name="ActionGuardCmd" value="3101" />
+      <IDSymbol name="LongExecutionsCmd" value="3102" />
     </GuidSymbol>
 
     <GuidSymbol name="timeback" value="{0c6e5c94-f934-4bac-acf9-e56653df5110}">

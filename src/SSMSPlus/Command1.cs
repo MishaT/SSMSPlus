@@ -27,9 +27,12 @@ using SSMSPlusDocument;
 
 using SSMSPlusHistory;
 
+using SSMSPlusMacros;
 using SSMSPlusPreferences;
 
 using SSMSPlusSearch;
+
+using SSMSPlusWarnings;
 
 using Task = System.Threading.Tasks.Task;
 
@@ -71,10 +74,13 @@ namespace SSMSPlus
                 ServiceLocator.SetLocatorProvider(_serviceProvider);
 
                 _serviceProvider.GetRequiredService<DbUpdater>().UpdateDb();
+                // before the history: a cancelled execution (UPDATE / DELETE without WHERE) is not recorded
+                _serviceProvider.GetRequiredService<WarningsPlugin>().Register();
                 _serviceProvider.GetRequiredService<HistoryPlugin>().Register();
                 _serviceProvider.GetRequiredService<SearchPlugin>().Register();
                 _serviceProvider.GetRequiredService<DocumentPlugin>().Register();
                 _serviceProvider.GetRequiredService<PreferencesUI>().Register();
+                _serviceProvider.GetRequiredService<MacrosUI>().Register();
             }
             catch (Exception ex)
             {
@@ -117,6 +123,8 @@ namespace SSMSPlus
             services.AddSSMSPlusSearchServices();
             services.AddSSMSPlusDocumentServices();
             services.AddSSMSPlusPreferencesServices();
+            services.AddSSMSPlusMacrosServices();
+            services.AddSSMSPlusWarningsServices();
             return services;
         }
 

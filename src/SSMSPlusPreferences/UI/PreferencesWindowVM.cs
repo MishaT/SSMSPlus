@@ -2,22 +2,23 @@
 using SSMSPlusCore.Settings;
 using SSMSPlusCore.Ui;
 using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SSMSPlusPreferences.UI
 {
     public class PreferencesWindowVM : ViewModelBase
     {
+        public const string ForkUrl = "https://github.com/MishaT/SSMSPlus";
+        public const string OriginalUrl = "https://github.com/akarzazi/SSMSPlus";
+
         private IVersionProvider _versionProvider;
         private IWorkingDirProvider _workingDirProvider;
         public DistributionSettings DistributionSettings { get; private set; }
 
         public Command OpenWorkingDirCmd { get; private set; }
         public Command OpenContributeCmd { get; private set; }
+        public Command OpenForkCmd { get; private set; }
+        public Command OpenOriginalCmd { get; private set; }
 
         public PreferencesWindowVM(IVersionProvider versionProvider, IWorkingDirProvider workingDirProvider, DistributionSettings distributionSettings)
         {
@@ -25,18 +26,15 @@ namespace SSMSPlusPreferences.UI
             _workingDirProvider = workingDirProvider;
             DistributionSettings = distributionSettings;
             OpenWorkingDirCmd = new Command(OnOpenWorkingDir, null, HandleError);
-            OpenContributeCmd = new Command(OnOpenContribute, null, HandleError);
+            OpenContributeCmd = new Command(() => Process.Start(DistributionSettings.ContributeUrl), null, HandleError);
+            OpenForkCmd = new Command(() => Process.Start(ForkUrl), null, HandleError);
+            OpenOriginalCmd = new Command(() => Process.Start(OriginalUrl), null, HandleError);
             InitDefaults();
         }
 
         private void OnOpenWorkingDir()
         {
             Process.Start(_workingDirProvider.GetWorkingDir());
-        }
-
-        private void OnOpenContribute()
-        {
-            Process.Start(DistributionSettings.ContributeUrl);
         }
 
         private void HandleError(Exception ex)

@@ -5,6 +5,7 @@ using SSMSPlusCore.Di;
 using SSMSPlusCore.Integration;
 using SSMSPlusCore.Integration.Connection;
 using SSMSPlusCore.Integration.ObjectExplorer;
+using SSMSPlusCore.Settings;
 
 namespace SSMSPlusCore
 {
@@ -17,6 +18,7 @@ namespace SSMSPlusCore
             services.AddSingleton<IObjectExplorerInteraction, ObjectExplorerInteraction>();
             services.AddSingleton<IServiceCacheIntegration, ServiceCacheIntegration>();
             services.AddSingleton<DbConnectionProvider>();
+            services.AddSingleton<UserPreferencesStore>();
 
             return services;
         }

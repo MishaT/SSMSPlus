@@ -60,6 +60,10 @@
         {
             ThreadHelper.ThrowIfNotOnUIThread();
 
+            // cancelled before (UPDATE / DELETE without WHERE confirmation): not executed
+            if (CancelDefault)
+                return;
+
             try
             {
                 string queryText = GetQueryText();
