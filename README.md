@@ -10,6 +10,7 @@ It extends SSMS with a handful set of features:
     Open transaction warning
     Action Guard: confirmation before UPDATE / DELETE without WHERE
     Long execution messages
+    Show As: open a results grid cell as a file (picture, text, PDF...)
 
 
 ### Table Of Contents
@@ -28,6 +29,7 @@ It extends SSMS with a handful set of features:
   * [Open Transaction Warning](#open-transaction-warning)
   * [Action Guard](#action-guard)
   * [Long Execution Messages](#long-execution-messages)
+  * [Show As](#show-as)
 - [Contributing](#contributing)
   * [How can I contribute ?](#how-can-i-contribute--)
   * [Project Goals](#project-goals)
@@ -167,6 +169,17 @@ Duration: 00:02:00
 ```
 
 Each execution gets its own message, they stack below each other. In **SSMS Plus > Settings > Long Executions...**: on / off, the threshold, the time after which the message is hidden (30 seconds), and the execution length after which the message stays until closed (10 minutes).
+
+## Show As
+
+Right click a cell of the results grid > **Show As** > a visualizer: the cell is saved to a file with the extension of the visualizer, then opened with its application, or with the Windows default application of the extension.
+
+- Binary columns are saved as bytes, the others as UTF-8 text. The files go to `%TEMP%\SSMS Plus\Visualizer` (column name + time stamp) and are deleted after a day.
+- The value is read from the SSMS result storage, not from the grid text: SSMS keeps up to the **Non XML data** number of bytes / characters (Tools > Options > Query Results > SQL Server > Results to Grid, 65535 by default, up to 10485760). Raise it to open bigger pictures or documents; the status bar tells when a value was cut.
+- **Show As** is hidden for NULL cells and when several cells are selected.
+- In **SSMS Plus > Settings > Visualizers...** (or Show As > Settings...): up to 10 visualizers with a name, a file extension, an optional application (`mspaint`, `code`, or a full path) and its arguments (`{file}` is the file path). Pre-filled with Picture, Text, JSON, XML and PDF.
+
+Tip: an unknown extension with an application, e.g. `.xyz` + `mspaint`, lets the application decide the format.
 
 # Contributing
 

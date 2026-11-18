@@ -49,7 +49,16 @@
       <Group guid="guidCommand1PackageCmdSet" id="SettingsMenuGroup" priority="0x0100">
         <Parent guid="guidCommand1PackageCmdSet" id="SettingsMenu"/>
       </Group>
-      <!-- always the last one -->
+      <!-- results grid context menu > Show As, after the Copy group (SSMS groups are 0x0011-0x007F: Copy < 0x0020 < Save Results As < 0x0028) -->
+      <Group guid="guidCommand1PackageCmdSet" id="ShowAsGroup" priority="0x0020">
+        <Parent guid="guidSqlEditorGroup" id="ResultsGridContextMenu"/>
+      </Group>
+      <Group guid="guidCommand1PackageCmdSet" id="ShowAsItemsGroup" priority="0x0100">
+        <Parent guid="guidCommand1PackageCmdSet" id="ShowAsMenu"/>
+      </Group>
+      <Group guid="guidCommand1PackageCmdSet" id="ShowAsSettingsGroup" priority="0x0200">
+        <Parent guid="guidCommand1PackageCmdSet" id="ShowAsMenu"/>
+      </Group>
       <Group guid="guidCommand1PackageCmdSet" id="MyAboutGroup" priority="0xFF00">
         <Parent guid="guidCommand1PackageCmdSet" id="MyTopMenu"/>
       </Group>
@@ -66,6 +75,13 @@
         <Parent guid="guidCommand1PackageCmdSet" id="MySettingsGroup"/>
         <Strings>
           <ButtonText>Settings</ButtonText>
+        </Strings>
+      </Menu>
+      <!-- hidden by SSMS when all its entries are hidden (no single non NULL cell selected) -->
+      <Menu guid="guidCommand1PackageCmdSet" id="ShowAsMenu" priority="0x0100" type="Menu">
+        <Parent guid="guidCommand1PackageCmdSet" id="ShowAsGroup"/>
+        <Strings>
+          <ButtonText>Show As</ButtonText>
         </Strings>
       </Menu>
     </Menus>
@@ -123,6 +139,110 @@
         <Parent guid="guidCommand1PackageCmdSet" id="SettingsMenuGroup" />
         <Strings>
           <ButtonText>Long Executions...</ButtonText>
+        </Strings>
+      </Button>
+      <Button guid="guidCommand1PackageCmdSet" id="VisualizersCmd" priority="0x0400" type="Button">
+        <Parent guid="guidCommand1PackageCmdSet" id="SettingsMenuGroup" />
+        <Strings>
+          <ButtonText>Visualizers...</ButtonText>
+        </Strings>
+      </Button>
+      <Button guid="guidCommand1PackageCmdSet" id="ShowAsSlot1" priority="0x0101" type="Button">
+        <Parent guid="guidCommand1PackageCmdSet" id="ShowAsItemsGroup" />
+        <CommandFlag>DefaultInvisible</CommandFlag>
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>TextChanges</CommandFlag>
+        <Strings>
+          <ButtonText>Visualizer 1</ButtonText>
+        </Strings>
+      </Button>
+      <Button guid="guidCommand1PackageCmdSet" id="ShowAsSlot2" priority="0x0102" type="Button">
+        <Parent guid="guidCommand1PackageCmdSet" id="ShowAsItemsGroup" />
+        <CommandFlag>DefaultInvisible</CommandFlag>
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>TextChanges</CommandFlag>
+        <Strings>
+          <ButtonText>Visualizer 2</ButtonText>
+        </Strings>
+      </Button>
+      <Button guid="guidCommand1PackageCmdSet" id="ShowAsSlot3" priority="0x0103" type="Button">
+        <Parent guid="guidCommand1PackageCmdSet" id="ShowAsItemsGroup" />
+        <CommandFlag>DefaultInvisible</CommandFlag>
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>TextChanges</CommandFlag>
+        <Strings>
+          <ButtonText>Visualizer 3</ButtonText>
+        </Strings>
+      </Button>
+      <Button guid="guidCommand1PackageCmdSet" id="ShowAsSlot4" priority="0x0104" type="Button">
+        <Parent guid="guidCommand1PackageCmdSet" id="ShowAsItemsGroup" />
+        <CommandFlag>DefaultInvisible</CommandFlag>
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>TextChanges</CommandFlag>
+        <Strings>
+          <ButtonText>Visualizer 4</ButtonText>
+        </Strings>
+      </Button>
+      <Button guid="guidCommand1PackageCmdSet" id="ShowAsSlot5" priority="0x0105" type="Button">
+        <Parent guid="guidCommand1PackageCmdSet" id="ShowAsItemsGroup" />
+        <CommandFlag>DefaultInvisible</CommandFlag>
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>TextChanges</CommandFlag>
+        <Strings>
+          <ButtonText>Visualizer 5</ButtonText>
+        </Strings>
+      </Button>
+      <Button guid="guidCommand1PackageCmdSet" id="ShowAsSlot6" priority="0x0106" type="Button">
+        <Parent guid="guidCommand1PackageCmdSet" id="ShowAsItemsGroup" />
+        <CommandFlag>DefaultInvisible</CommandFlag>
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>TextChanges</CommandFlag>
+        <Strings>
+          <ButtonText>Visualizer 6</ButtonText>
+        </Strings>
+      </Button>
+      <Button guid="guidCommand1PackageCmdSet" id="ShowAsSlot7" priority="0x0107" type="Button">
+        <Parent guid="guidCommand1PackageCmdSet" id="ShowAsItemsGroup" />
+        <CommandFlag>DefaultInvisible</CommandFlag>
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>TextChanges</CommandFlag>
+        <Strings>
+          <ButtonText>Visualizer 7</ButtonText>
+        </Strings>
+      </Button>
+      <Button guid="guidCommand1PackageCmdSet" id="ShowAsSlot8" priority="0x0108" type="Button">
+        <Parent guid="guidCommand1PackageCmdSet" id="ShowAsItemsGroup" />
+        <CommandFlag>DefaultInvisible</CommandFlag>
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>TextChanges</CommandFlag>
+        <Strings>
+          <ButtonText>Visualizer 8</ButtonText>
+        </Strings>
+      </Button>
+      <Button guid="guidCommand1PackageCmdSet" id="ShowAsSlot9" priority="0x0109" type="Button">
+        <Parent guid="guidCommand1PackageCmdSet" id="ShowAsItemsGroup" />
+        <CommandFlag>DefaultInvisible</CommandFlag>
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>TextChanges</CommandFlag>
+        <Strings>
+          <ButtonText>Visualizer 9</ButtonText>
+        </Strings>
+      </Button>
+      <Button guid="guidCommand1PackageCmdSet" id="ShowAsSlot10" priority="0x010A" type="Button">
+        <Parent guid="guidCommand1PackageCmdSet" id="ShowAsItemsGroup" />
+        <CommandFlag>DefaultInvisible</CommandFlag>
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>TextChanges</CommandFlag>
+        <Strings>
+          <ButtonText>Visualizer 10</ButtonText>
+        </Strings>
+      </Button>
+      <Button guid="guidCommand1PackageCmdSet" id="ShowAsSettingsCmd" priority="0x0100" type="Button">
+        <Parent guid="guidCommand1PackageCmdSet" id="ShowAsSettingsGroup" />
+        <CommandFlag>DefaultInvisible</CommandFlag>
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <Strings>
+          <ButtonText>Settings...</ButtonText>
         </Strings>
       </Button>
       <!-- Macro slots: text, visibility and shortcut are set at runtime from the macros settings -->
@@ -264,6 +384,10 @@
     <GuidSymbol name="guidCommand1Package" value="{d09fc137-a22d-446b-89ce-1d2667f49364}" />
 
     <!-- This is the guid used to group the menu commands together -->
+    <!-- SSMS query editor menus: 112 = results grid context menu -->
+    <GuidSymbol name="guidSqlEditorGroup" value="{33F13AC3-80BB-4ecb-85BC-225435603A5E}">
+      <IDSymbol name="ResultsGridContextMenu" value="112" />
+    </GuidSymbol>
     <GuidSymbol name="guidCommand1PackageCmdSet" value="{26d56063-673e-4de6-b6bd-8ebf0f367895}">
       <IDSymbol name="MyTopMenu" value="0x1001" />
       <IDSymbol name="MyMenuGroup" value="0x1020" />
@@ -289,6 +413,22 @@
       <IDSymbol name="MyAboutGroup" value="0x1024" />
       <IDSymbol name="ActionGuardCmd" value="3101" />
       <IDSymbol name="LongExecutionsCmd" value="3102" />
+      <IDSymbol name="VisualizersCmd" value="3103" />
+      <IDSymbol name="ShowAsMenu" value="0x1003" />
+      <IDSymbol name="ShowAsGroup" value="0x1025" />
+      <IDSymbol name="ShowAsItemsGroup" value="0x1026" />
+      <IDSymbol name="ShowAsSettingsGroup" value="0x1027" />
+      <IDSymbol name="ShowAsSettingsCmd" value="3320" />
+      <IDSymbol name="ShowAsSlot1" value="3301" />
+      <IDSymbol name="ShowAsSlot2" value="3302" />
+      <IDSymbol name="ShowAsSlot3" value="3303" />
+      <IDSymbol name="ShowAsSlot4" value="3304" />
+      <IDSymbol name="ShowAsSlot5" value="3305" />
+      <IDSymbol name="ShowAsSlot6" value="3306" />
+      <IDSymbol name="ShowAsSlot7" value="3307" />
+      <IDSymbol name="ShowAsSlot8" value="3308" />
+      <IDSymbol name="ShowAsSlot9" value="3309" />
+      <IDSymbol name="ShowAsSlot10" value="3310" />
     </GuidSymbol>
 
     <GuidSymbol name="timeback" value="{0c6e5c94-f934-4bac-acf9-e56653df5110}">

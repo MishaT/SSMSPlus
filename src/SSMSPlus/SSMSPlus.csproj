@@ -343,6 +343,10 @@
       <Project>{b6b2bd05-44a2-4726-b9f6-c648b9651020}</Project>
       <Name>SSMSPlusWarnings</Name>
     </ProjectReference>
+    <ProjectReference Include="..\SSMSPlusVisualizers\SSMSPlusVisualizers.csproj">
+      <Project>{508070c7-9230-48c8-ad31-c851dc28c19c}</Project>
+      <Name>SSMSPlusVisualizers</Name>
+    </ProjectReference>
     <ProjectReference Include="..\SSMSPlusPreferences\SSMSPlusPreferences.csproj">
       <Project>{EB38BBD1-F621-4AE1-9B82-15D52DACF042}</Project>
       <Name>SSMSPlusPreferences</Name>

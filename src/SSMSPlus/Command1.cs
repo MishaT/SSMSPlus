@@ -32,6 +32,8 @@ using SSMSPlusPreferences;
 
 using SSMSPlusSearch;
 
+using SSMSPlusVisualizers;
+
 using SSMSPlusWarnings;
 
 using Task = System.Threading.Tasks.Task;
@@ -81,6 +83,7 @@ namespace SSMSPlus
                 _serviceProvider.GetRequiredService<DocumentPlugin>().Register();
                 _serviceProvider.GetRequiredService<PreferencesUI>().Register();
                 _serviceProvider.GetRequiredService<MacrosUI>().Register();
+                _serviceProvider.GetRequiredService<VisualizersUI>().Register();
             }
             catch (Exception ex)
             {
@@ -125,6 +128,7 @@ namespace SSMSPlus
             services.AddSSMSPlusPreferencesServices();
             services.AddSSMSPlusMacrosServices();
             services.AddSSMSPlusWarningsServices();
+            services.AddSSMSPlusVisualizersServices();
             return services;
         }
 
