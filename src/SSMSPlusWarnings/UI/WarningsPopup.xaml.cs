@@ -57,6 +57,8 @@
             Top = -32000;
             SourceInitialized += (s, e) => PopupPlacement.MakeNonActivating(new WindowInteropHelper(this).Handle);
             SizeChanged += (s, e) => Place();
+            // moved to a monitor with another scaling: Windows resizes the popup after the move, place it again with its new size
+            DpiChanged += (s, e) => Dispatcher.BeginInvoke(DispatcherPriority.Background, new Action(Place));
             Show();
 
             if (_ownerWindow != null)
