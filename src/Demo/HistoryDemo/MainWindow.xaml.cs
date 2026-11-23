@@ -40,7 +40,7 @@ namespace Demo
             else if (tested == 3)
             {
                 var ui = new PreferencesWindow();
-                ui.ShowAndActivate();
+                ui.Show();
             }
         }
     }

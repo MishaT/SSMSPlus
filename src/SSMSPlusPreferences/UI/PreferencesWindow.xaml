@@ -1,4 +1,4 @@
-﻿<Window x:Class="SSMSPlusPreferences.UI.PreferencesWindow"
+﻿<platformUI:DialogWindow x:Class="SSMSPlusPreferences.UI.PreferencesWindow"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -6,17 +6,20 @@
              xmlns:local="clr-namespace:SSMSPlusPreferences.UI"
              xmlns:ext="clr-namespace:SSMSPlusCore.Ui.Extensions;assembly=SSMSPlusCore"
              xmlns:vs="clr-namespace:Microsoft.VisualStudio.PlatformUI;assembly=Microsoft.VisualStudio.Shell.15.0"
+             xmlns:platformUI="clr-namespace:Microsoft.VisualStudio.PlatformUI;assembly=Microsoft.VisualStudio.Shell.15.0"
              Title="About SSMS Plus"
              Width="720" Height="560" MinWidth="560" MinHeight="420"
-             WindowStartupLocation="CenterScreen"
+             WindowStartupLocation="CenterOwner"
+             ShowInTaskbar="False"
+             HasMinimizeButton="False"
              Background="{DynamicResource {x:Static vs:EnvironmentColors.ToolWindowBackgroundBrushKey}}"
              Foreground="{DynamicResource {x:Static vs:EnvironmentColors.ToolWindowTextBrushKey}}"
              ext:VsTheme.UseVsTheme="True"
              mc:Ignorable="d">
 
-    <Window.Resources>
+    <platformUI:DialogWindow.Resources>
         <ResourceDictionary Source="pack://application:,,,/SSMSPlusCore;component/Ui/Design/Theme.xaml"/>
-    </Window.Resources>
+    </platformUI:DialogWindow.Resources>
     <ScrollViewer VerticalScrollBarVisibility="Auto">
         <Grid Margin="12" Grid.IsSharedSizeScope="True" ext:GridExtensions.Structure="auto,auto,auto|*">
             <Grid Grid.Row="0" Background="Transparent" Margin="0,0,0,12" ext:GridExtensions.Structure="auto,auto|auto,auto,*">
@@ -99,4 +102,4 @@
             </GroupBox>
         </Grid>
     </ScrollViewer>
-</Window>
+</platformUI:DialogWindow>

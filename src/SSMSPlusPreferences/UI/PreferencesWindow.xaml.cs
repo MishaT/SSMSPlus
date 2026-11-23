@@ -1,15 +1,13 @@
-﻿using SSMSPlusCore.Di;
+﻿using Microsoft.VisualStudio.PlatformUI;
+using SSMSPlusCore.Di;
 using SSMSPlusCore.Ui;
-using System.ComponentModel;
-using System.Windows;
 using System.Windows.Automation.Peers;
+using System.Windows.Input;
 
 namespace SSMSPlusPreferences.UI
 {
-    /// <summary>
-    /// Interaction logic for UserControl1.xaml
-    /// </summary>
-    public partial class PreferencesWindow : Window
+    /// <summary>The About dialog, modal over SSMS: Esc closes it and the focus goes back to SSMS.</summary>
+    public partial class PreferencesWindow : DialogWindow
     {
         public PreferencesWindow()
         {
@@ -23,10 +21,17 @@ namespace SSMSPlusPreferences.UI
             return new EmptyAutomationPeer(this);
         }
 
-        protected override void OnClosing(CancelEventArgs e)
+        protected override void OnPreviewKeyDown(KeyEventArgs e)
         {
-            e.Cancel = true;
-            this.Visibility = Visibility.Hidden;
+            // handled here, otherwise SSMS takes Esc and activates another window
+            if (e.Key == Key.Escape)
+            {
+                e.Handled = true;
+                Close();
+                return;
+            }
+
+            base.OnPreviewKeyDown(e);
         }
     }
 }
